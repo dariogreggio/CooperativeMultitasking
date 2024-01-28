@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------
 //https://github.com/Kraego/STM32-MiniOS/blob/main/Usercode/Concurrency/scheduler.c
-// pic32-libs/libpic32/arch/mips/setjmp.S (col cazzo che c'è...)
+// pic32-libs/libpic32/arch/mips/setjmp.S (col cazzo che c'Ã¨...)
 static THREAD *gRunningThread;
 static BOOL addThread(THREAD *thread) {
   THREAD *myThread;
@@ -51,7 +51,7 @@ THREAD *BeginThread(void *function,BYTE state,DWORD parm) {
 	ATOMIC_END();
   gRunningThread=thread;
   ((void (*)(DWORD))(thread->context))(parm);    // per primo preset
-  switch(state) {   // FORZARE automaticamente se è il primo/root? avrebbe senso
+  switch(state) {   // FORZARE automaticamente se Ã¨ il primo/root? avrebbe senso
     case THREAD_RUNNING:
       setActiveThread(thread);
       longjmp(thread->env,1);
@@ -243,7 +243,7 @@ void ThreadSleep(uint16_t duration_ms) {  // OVVIAMENTE deve agire solo sul thre
 
 BOOL SwitchToThread(THREAD *t) {
   THREAD *t2=gRunningThread;
-// in un VERO multitasking, non si può scegliere a chi passare il controllo...  
+// in un VERO multitasking, non si puÃ² scegliere a chi passare il controllo...  
 // ..per cui sorvoliamo :)  gRunningThread->state=THREAD_READY;
 //  getNextThread()->state=THREAD_RUNNING;
   Yield();
