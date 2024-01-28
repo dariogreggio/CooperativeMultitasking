@@ -13807,6 +13807,17 @@ DWORD WaitForSingleObject(THREAD *t,BYTE hEvent,DWORD dwMilliseconds) {
     }
   return WAIT_TIMEOUT;
   }
+DWORD WaitForSingleObjectEx(THREAD *t,BYTE hEvent,DWORD dwMilliseconds,BOOL bAutoReset) {
+  while(dwMilliseconds--) {   // INFINITE è ok :)
+    if(t->signals & (1 << hEvent)) {
+      if(bAutoReset)
+        t->signals &= ~(1 << hEvent);
+      return WAIT_OBJECT_0;
+      }
+    Yield();
+    }
+  return WAIT_TIMEOUT;
+  }
 DWORD WaitForMultipleObjects(THREAD *t,BYTE eventMask,BOOL bWaitAll,DWORD dwMilliseconds) {
   while(dwMilliseconds--) {   // INFINITE è ok :)
     if(bWaitAll) {

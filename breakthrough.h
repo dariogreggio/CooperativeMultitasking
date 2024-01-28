@@ -3365,7 +3365,7 @@ typedef enum __attribute__ ((__packed__)) {
 //    THREAD_PTY_VERYHIGH,
 //    THREAD_PTY_REALTIME
     } THREAD_PRIORITY;
-#define _JB_LEN 24      // incongruenza (coglioni) in setjmp.h
+#define _JB_LEN 24      // incongruenza (coglioni) in setjmp.h https://forum.microchip.com/s/topic/a5C3l000000MSHUEA4/t338772
 typedef int jmp_buf[_JB_LEN]; // sembra andare... 28/1/24 #porcamadonnalenuvole #leucemiafiglicarabinieri
 typedef struct __attribute((packed)) _THREAD {
 	void *context;
