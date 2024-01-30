@@ -3,8 +3,8 @@
 #define THREAD_ID_INVALID	(-1)
 #define MAX_THREADS			(20)
 #define TIMESLICE_MS		(1)
-#define ENV_POSITION_RETURNADDRESS (11*2)      // sperimentale (non ci sono i sorgenti e il debugger mostra int64!! @#£$% #cancrokubler
-#define ENV_POSITION_RETURNCODE (23)      // a caso, v. .. oppure si potrebbero usare 8-9 dove c'è lo stack, vicinanze
+#define ENV_POSITION_RETURNADDRESS (11*2)      // sperimentale (non ci sono i sorgenti e il debugger mostra int64!! @#Â£$% #cancrokubler
+#define ENV_POSITION_RETURNCODE (23)      // a caso, v. .. oppure si potrebbero usare 8-9 dove c'Ã¨ lo stack, vicinanze
 typedef enum __attribute__ ((__packed__)) {
 	THREAD_NEW=0, 
     THREAD_READY,
@@ -72,7 +72,7 @@ THREAD *setActiveThread(THREAD *);
 //extern THREAD *rootThreads,*winManagerThreadID;
 //https://stackoverflow.com/questions/14685406/practical-usage-of-setjmp-and-longjmp-in-c/14685524
 //https://en.wikipedia.org/wiki/Setjmp.h
-// DEVO spacioccare con l'active Thread perché non c'è modo di ricavare il thread da dentro la funzione...
+// DEVO spacioccare con l'active Thread perchÃ© non c'Ã¨ modo di ricavare il thread da dentro la funzione...
 //  IDEM deve essere una Macro per salvare/ricevere la posizione attuale
 //void Yield(void *);
 #ifdef USA_BREAKTHROUGH
