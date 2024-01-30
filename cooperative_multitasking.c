@@ -2,7 +2,7 @@ static THREAD *rootThreads=NULL,*winManagerThreadID;
 
 // ----------------------------------------------------------------------------
 //https://github.com/Kraego/STM32-MiniOS/blob/main/Usercode/Concurrency/scheduler.c
-// pic32-libs/libpic32/arch/mips/setjmp.S (col cazzo che c'è...)
+// pic32-libs/libpic32/arch/mips/setjmp.S (col cazzo che c'Ä...)
 static THREAD *gRunningThread;
 static BYTE addThread(THREAD *thread) {
   THREAD *myThread;
@@ -66,11 +66,11 @@ THREAD *BeginThread(void *function,BYTE state,DWORD parm) {
   thread->state=state;
   ((void (*)(DWORD))(thread->context))(parm);    // per primo preset
  
-// NON SI PUò FARE LONGJMP A UNA FUNZIONE TERMINATA... per cui va usato ExitThread() e il return non viene mai eseguito
+// NON SI PUÅˆ FARE LONGJMP A UNA FUNZIONE TERMINATA... per cui va usato ExitThread() e il return non viene mai eseguito
 //  https://web.eecs.utk.edu/~mbeck/classes/cs560/360/notes/Setjmp/lecture.html
   // v. sotto: potrebbero esserci dei leak di memoria...
   state=thread->state;
-  switch(state) {   // FORZARE automaticamente se è il primo/root? avrebbe senso
+  switch(state) {   // FORZARE automaticamente se Ä il primo/root? avrebbe senso
     case THREAD_RUNNING:
       setActiveThread(thread);
 //  ((void (*)(DWORD))(thread->context))(parm);    // per primo preset
@@ -105,7 +105,7 @@ void ExitThread(DWORD n) {
 //  gRunningThread->env[11*2]=rootThreads->env[11*2];
 //  gRunningThread->env[22*2]=rootThreads->env[22*2];
   
-  thread->env[ENV_POSITION_RETURNCODE]=n;   // NATURALMENTE diventa difficile accedere al thread dopo che è stato deallocato :D ! vedere...
+  thread->env[ENV_POSITION_RETURNCODE]=n;   // NATURALMENTE diventa difficile accedere al thread dopo che Ä stato deallocato :D ! vedere...
   setActiveThread(getNextThread());
 	thread->state = THREAD_DONE;
   EndThread(thread);
@@ -271,8 +271,8 @@ rifo:
       ptyCnt=0;
       myPty=THREAD_PTY_HIGH;
       oldThread=NULL;
-//      goto rifo;    // questo mi entra in loop all'inizio quando non c'è nessun thread READY...
-      return myThread ? myThread : rootThreads;   // root si becca uno slot in più... sistemare (o ok)
+//      goto rifo;    // questo mi entra in loop all'inizio quando non c'Ä nessun thread READY...
+      return myThread ? myThread : rootThreads;   // root si becca uno slot in piÅ¯... sistemare (o ok)
       }
     else if(ptyCnt>5) {
       myPty=THREAD_PTY_LOW;
@@ -336,7 +336,7 @@ void ThreadSleep(uint16_t duration_ms) {  // OVVIAMENTE deve agire solo sul thre
 
 BOOL SwitchToThread(THREAD *t) {
   THREAD *t2=gRunningThread;
-// in un VERO multitasking, non si può scegliere a chi passare il controllo...  
+// in un VERO multitasking, non si puÅˆ scegliere a chi passare il controllo...  
 // ..per cui sorvoliamo :)  gRunningThread->state=THREAD_READY;
 //  getNextThread()->state=THREAD_RUNNING;
   Yield();
@@ -352,7 +352,7 @@ BOOL ResetEvent(THREAD *t,BYTE hEvent) {
   return TRUE;
   }
 DWORD WaitForSingleObject(THREAD *t,BYTE hEvent,DWORD dwMilliseconds) {
-  while(dwMilliseconds--) {   // INFINITE è ok :)
+  while(dwMilliseconds--) {   // INFINITE Ä ok :)
     if(t->signals & (1 << hEvent))
       return WAIT_OBJECT_0;
     Yield();
@@ -360,7 +360,7 @@ DWORD WaitForSingleObject(THREAD *t,BYTE hEvent,DWORD dwMilliseconds) {
   return WAIT_TIMEOUT;
   }
 DWORD WaitForSingleObjectEx(THREAD *t,BYTE hEvent,DWORD dwMilliseconds,BOOL bAutoReset) {
-  while(dwMilliseconds--) {   // INFINITE è ok :)
+  while(dwMilliseconds--) {   // INFINITE Ä ok :)
     if(t->signals & (1 << hEvent)) {
       if(bAutoReset)
         t->signals &= ~(1 << hEvent);
@@ -371,7 +371,7 @@ DWORD WaitForSingleObjectEx(THREAD *t,BYTE hEvent,DWORD dwMilliseconds,BOOL bAut
   return WAIT_TIMEOUT;
   }
 DWORD WaitForMultipleObjects(THREAD *t,BYTE eventMask,BOOL bWaitAll,DWORD dwMilliseconds) {
-  while(dwMilliseconds--) {   // INFINITE è ok :)
+  while(dwMilliseconds--) {   // INFINITE Ä ok :)
     if(bWaitAll) {
       if((t->signals & eventMask) == eventMask)
         return WAIT_OBJECT_0;
